@@ -169,6 +169,6 @@ Only file names are changed.
 
 This tool is intended to prepare CDN folders that require ".app" file extensions and "title.tmd" naming.
 
-Credits
+## Credits
 
 This repository provides an Android/Termux workflow for preparing CDN folders by automatically adding ".app" extensions and creating "title.tmd" from the highest numbered TMD file.
