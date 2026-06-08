@@ -7,7 +7,7 @@ mkdir -p auto_prepare
 prepare_folder() {
     folder="$1"
 
-    echo ""
+    echo
     game="$(basename "${folder%/}")"
     echo "Processing: $game"
 
@@ -92,19 +92,23 @@ prepare_folder() {
 }
 
 while true; do
-    echo ""
+    clear
+
+    echo
     echo "noapp2cdn_android"
-    echo ""
+    echo
     echo "1) Prepare CDN folders"
     echo "9) Run first-time setup (required before first use)"
     echo "0) Exit"
-    echo ""
+    echo
 
     read -p "Choose what to do: " choice
 
     case "$choice" in
 
         1)
+            clear
+
             found=0
 
             for D in auto_prepare/*/; do
@@ -114,25 +118,31 @@ while true; do
             done
 
             if [ "$found" -eq 0 ]; then
-                echo ""
+                echo
                 echo "No folders found in auto_prepare."
             else
-                echo ""
+                echo
                 echo "Done."
             fi
+
+            echo
+            read -p "Press Enter to continue..."
             ;;
 
         9)
+            clear
             bash ./noapp2cdn_setup.sh
             ;;
 
         0)
-            echo "Exit."
+            clear
             exit 0
             ;;
 
         *)
+            echo
             echo "Invalid choice."
+            sleep 1
             ;;
 
     esac
