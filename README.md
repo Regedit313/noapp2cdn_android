@@ -20,14 +20,15 @@ bash ~/storage/shared/noapp2cdn_android/noapp2cdn.sh
 
 5. IMPORTANT:
 
-For the first use, before using any other menu option, select:
+For the first use, before preparing any CDN folder, select:
 
 9 = Run first-time setup (required before first use)
 
 This step prepares the project folders and configures the Termux environment.
 
-The first-time setup must be completed before using any other menu option.
+The first-time setup must be completed before the first preparation.
 
+---
 
 ## Menu
 
@@ -35,13 +36,37 @@ When started, noapp2cdn.sh provides the following options:
 
 1 = Prepare CDN folders
 
-2 = Run first-time setup (required before first use)
+9 = Run first-time setup (required before first use)
 
-3 = Exit
+0 = Exit
+
+---
+
+## Prepare CDN Folders
+
+Place one game CDN folder per game inside:
+
+auto_prepare/
+
+When option 1 is selected, the script automatically:
+
+- Searches all folders inside auto_prepare/
+- Adds the .app extension to files that do not already have an extension
+- Searches for the highest numbered tmd.NUMBER file
+- Renames the highest numbered TMD file to title.tmd
+- Leaves all other files untouched
+
+Folders are modified directly inside auto_prepare/.
+
+No files are copied or moved outside the folder being prepared.
+
+---
 
 ## Input
 
-Place one game CDN folder per game inside "auto_prepare/".
+Place one game CDN folder per game inside:
+
+auto_prepare/
 
 Example:
 
@@ -67,16 +92,25 @@ auto_prepare/
 
 -------- tmd.0
 
+---
 
 ## Output
 
-The folders inside "auto_prepare/" are modified in place.
+The folders inside auto_prepare/ are modified in place.
 
 Files without an extension are renamed with:
 
 .app
 
 added to the filename.
+
+Example:
+
+00000000
+
+becomes:
+
+00000000.app
 
 The highest numbered:
 
@@ -86,10 +120,19 @@ file is renamed to:
 
 title.tmd
 
+Example:
+
+tmd.1040
+
+becomes:
+
+title.tmd
+
+---
 
 ## Folder Structures
 
-### Folder Structure Before Running noapp2cdn.sh
+### Folder Structure Before Preparation
 
 noapp2cdn_android/
 
@@ -121,8 +164,9 @@ noapp2cdn_android/
 
 ------------ tmd.0
 
+---
 
-### Folder Structure After Running noapp2cdn.sh
+### Folder Structure After Preparation
 
 noapp2cdn_android/
 
@@ -154,12 +198,13 @@ noapp2cdn_android/
 
 ------------ title.tmd
 
+---
 
 ## Notes
 
-The "auto_prepare/" folder is created during the first-time setup and is automatically recreated when launching noapp2cdn.sh if it does not already exist.
+The required folders are automatically created if they do not already exist.
 
-Folders that already contain "title.tmd" and no files without an extension are automatically skipped.
+Folders that already contain title.tmd and no files without an extension are automatically skipped.
 
 Folders that are only partially prepared are automatically completed.
 
@@ -167,8 +212,17 @@ The original file contents are never modified.
 
 Only file names are changed.
 
-This tool is intended to prepare CDN folders that require ".app" file extensions and "title.tmd" naming.
+The script always uses the highest numbered tmd.NUMBER file when creating title.tmd.
+
+If no valid tmd.NUMBER file exists, a warning is displayed and the folder is left unchanged.
+
+This tool is intended to prepare CDN folders for use with tools that require:
+
+- .app file extensions
+- title.tmd naming
+
+---
 
 ## Credits
 
-This repository provides an Android/Termux workflow for preparing CDN folders by automatically adding ".app" extensions and creating "title.tmd" from the highest numbered TMD file.
+This repository provides an Android/Termux workflow for preparing CDN folders by automatically adding .app extensions and creating title.tmd from the highest numbered TMD file.
